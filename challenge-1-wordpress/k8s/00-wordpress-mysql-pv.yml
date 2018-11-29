@@ -9,11 +9,11 @@ metadata:
     tier: frontend
 spec:
   capacity:
-    storage: 10Gi
+    storage: 1Gi
   accessModes:
     - ReadWriteMany
   nfs:
-    server: x.x.x.x
+    server: nfs01
     # Exported path of your NFS server
     path: "/html"
 
@@ -27,10 +27,10 @@ metadata:
     tier: mysql
 spec:
   capacity:
-    storage: 10Gi
+    storage: 1Gi
   accessModes:
     - ReadWriteMany
   nfs:
-    server: x.x.x.x
+    server: nfs01
     # Exported path of your NFS server
     path: "/mysql"

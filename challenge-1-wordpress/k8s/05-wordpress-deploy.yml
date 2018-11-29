@@ -38,7 +38,7 @@ spec:
         tier: frontend
     spec:
       containers:
-      - image: mohamedayman/wordpress
+      - image: wordpress
         name: wordpress
         env:
         - name: WORDPRESS_DB_HOST

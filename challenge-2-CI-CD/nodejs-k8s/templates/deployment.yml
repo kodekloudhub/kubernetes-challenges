@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: node-deploy
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    app: nodejs
+  template:
+    metadata:
+      name: nodejs
+      labels:
+        app: nodejs
+    spec:
+      containers:
+      - name: nodejs
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - name: nodejsport
+          containerPort: {{ .Values.service.internalPort }}

@@ -1,3 +1,6 @@
+
+This challenge is based on the example posted on Kubernetes Documentation: https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/
+
 # NFS
 
   ## Creating/Adjusting Folder /mysql & /html and editing /etc/exports

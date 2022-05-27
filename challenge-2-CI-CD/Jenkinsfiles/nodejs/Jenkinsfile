@@ -24,7 +24,7 @@ node{
    stage('Deploy nodejs App on K8s'){
      sh  script: """
          set +e
-         helm install --name nodejs --set image.repository=${ImageName} --set image.tag=${imageTag} ./nodejs-k8s
+         helm install  nodejs --set image.repository=${ImageName} --set image.tag=${imageTag} ./nodejs-k8s
          set -e
          """
          // update to New version

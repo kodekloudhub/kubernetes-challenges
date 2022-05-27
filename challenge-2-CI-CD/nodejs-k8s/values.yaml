@@ -9,6 +9,6 @@ image:
   tag: NULL
 
 service:
-  type: LoadBalancer
+  type: NodePort
   internalPort: 3000
   externallPort: 30333

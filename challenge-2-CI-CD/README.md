@@ -72,24 +72,6 @@ In this lab, we will achieve the CI/CD for a "Hello Kubernetes" NodeJS App using
 
 
 
-   Installing Tiller
-
-    Tiller, the server portion of Helm, typically runs inside of your Kubernetes cluster.
-
-        $ su - jenkins
-
-        -> copy k8s config under .kube/config
-
-        $ helm init --upgrade
-
-        $ kubectl get deployment -n kube-system --selector=app=helm
-          NAME            DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-          tiller-deploy   1         1         1            1           1m
-
-        $ kubectl get pods -n kube-system --selector=app=helm
-          NAME                            READY     STATUS    RESTARTS   AGE
-          tiller-deploy-759b9d56c-wcpxx   1/1       Running   0          2m
-
 
 
 

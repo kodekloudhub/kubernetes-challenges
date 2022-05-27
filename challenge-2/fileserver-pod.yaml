@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: gop-fileserver
+  name: gop-fileserver
+spec:
+  volumes:
+  - name: data-store
+    persistentVolumeClaim:
+      claimName: data-pvc
+  containers:
+  - image: kodekloud/fileserver
+    imagePullPolicy: IfNotPresent
+    name: gop-fileserver
+    volumeMounts:
+       - name: data-store
+         mountPath: /web
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+
+
+

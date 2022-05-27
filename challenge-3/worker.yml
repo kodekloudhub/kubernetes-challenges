@@ -1,0 +1,27 @@
+# kubectl create deployment worker --image=kodekloud/examplevotingapp_worker --dry-run=client -o yaml -n vote > worker.yaml
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: worker
+  name: worker
+  namespace: vote
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: worker
+    spec:
+      containers:
+      - image: kodekloud/examplevotingapp_worker
+        name: examplevotingapp-worker-s7cwx
+

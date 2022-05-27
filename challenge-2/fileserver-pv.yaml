@@ -1,0 +1,14 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+    name: data-pv
+spec:
+   accessModes: ["ReadWriteMany"]
+   capacity:
+    storage: 1Gi
+   hostPath:
+      path: /web
+      type: DirectoryOrCreate
+
+      

@@ -1,5 +1,5 @@
 node{
-  def gitUrl        = "https://mAyman2612@bitbucket.org/mAyman2612/test.git"
+  def gitUrl        = "https://github.com/kodekloudhub/kubernetes-challenges.git"
   def ImageName     = "mohamedayman/nodejs-demo"
   def gitCred 	    = "git"
   def dockerhubCred = "dockerhub"

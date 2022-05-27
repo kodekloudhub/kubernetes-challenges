@@ -35,13 +35,6 @@ In this lab, we will achieve the CI/CD for a "Hello Kubernetes" NodeJS App using
 
     On your browser Jenkins-IP:8080, paste the previous password and select "Install suggested plugins"
 
-  Install NodeJS to run unit test before dockerize the app
-
-    $ curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
-    $ echo "deb https://deb.nodesource.com/node_8.x xenial main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-    $ sudo apt install nodejs -y
-    $ node -v   //v8.12.0
-    $ sudo npm install -g mocha
 
   Installing Docker  
 

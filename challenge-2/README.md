@@ -26,3 +26,31 @@ $ kubectl get pods -n kube-system
 
 7. Now cluster in configured to perform the following tasks. 
 
+**IMPORTANT NOTE: -**
+
+After fixing the issue in the `kube-apiserver.yaml` file. If the `kube-apiserver` container doesn't come up then restart the `kubelet` service.
+
+Run the following commands as shown below: - 
+
+**a.)** Restart the `kubelet` service.
+
+```sh
+systemctl restart kubelet
+```
+
+**b.)** Then check the availability of the `kube-apiserver` container: -
+
+```sh
+watch "docker ps | grep kube-api"
+```
+
+**c.)** After container's availability, run the `kubectl` command: -
+
+```sh
+kubectl get nodes
+
+```
+  
+  
+  
+  

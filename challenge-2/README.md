@@ -1,56 +1,185 @@
-# [Challenge-2](https://kodekloud.com/topic/kubernetes-challenge-2/)
+# Challenge 2
+
+This 2-Node Kubernetes cluster is broken! Troubleshoot, fix the cluster issues and then deploy the objects according to the given architecture diagram to unlock our `Image Gallery`!!  Find the lab [here](https://kodekloud.com/topic/kubernetes-challenge-2/)
+
+As ever, the order you create the resources is significant, and governed by the direction of the arrows in the diagram.
 
 
-> Note: -
+1.  <details>
+    <summary>Fix the control plane node</summary>
 
-1. At location of `/etc/kubernetes/manifests`, in `kube-apiserver.yaml` client ca file name is incorrect. Fix it with correct name.
-2. After fixing the `kube-apiserver.yaml` manifest file, move to the path of `/root/.kube/`, as per description match the name of `user` and `api-server` port number.
-3. After fixing the issues, cluster should be up. Do `kubectl get nodes` to check the status of nodes.
-4. Worker node is not set to schedule pods. Fix it with the certain command.
+    </br>This has three subtasks. The order to do them is atucally the *reverse* order in which they are listed!
+
+    1.  <details>
+        <summary>kubeconfig = /root/.kube/config, User = 'kubernetes-admin' Cluster: Server Port = '6443'</summary>
+
+        </br>Before we can execute any `kubectl` commands, we must fix the kubeconfig. The server port is incorrect and should be `6443`. Edit this in `vi` and save.
+
+        ```bash
+        vi .kube/config
+        ```
+
+        </details>
+
+    1.  <details>
+        <summary>Fix kube-apiserver. Make sure its running and healthy.</summary>
+
+        </br>The file referenced by the `--client-ca-file` argument to the API server doesn't exist. Edit the API server manisfest and correct this.
+
+        ```bash
+        ls -l /etc/kubernetes/pki/*.crt
+        # Notice that the correct certificate is ca.crt
+        vi /etc/kubernetes/manifests/kube-apiserver.yaml
+        ```
+
+        Now wait for the API server to restart. This may take a minute or so. You can run the following to check if the container has been created. Press `CTRL-C` to eacape from the following command.
+
+        ```bash
+        watch docker ps
+        ```
+
+        If it still hasn't started, then give it a nudge by restarting the kubelet.
+
+        ```bash
+        systemctl restart kubelet
+        ```
+
+        ...then run the docker command again. If you see it starting and stopping, then you've made an error in the manifest that you need to fix.
+
+        </details>
+
+    1.  <details>
+        <summary>Master node: coredns deployment has image: 'k8s.gcr.io/coredns/coredns:v1.8.6'</summary>
+
+        </br>Run the following:
+
+        ```bash
+        kubectl get pods -n kube-system
+        ```
+
+        You will see that CoreDNS has ImagePull errors, because the container imange is incorrect. To fix this, run the following, update the `iamge:` to that specificed in the question, save and exit
+
+        ```bash
+        kubectl edit deployment -n kube-system coredns
+        ```
+
+        Now re-run the `get pods` command above (or use `watch` with it) until the coredns pods have recycled and there are two healthy pods.
+        </details>
+    </details>
+
+1.  <details>
+    <summary>node01 is ready and can schedule pods?</summary>
+
+    </br>Run the following:
+
+    ```bash
+    kubectl get nodes
+    ```
+
+    We can see that `node01` is in state `Ready,SchedulingDisabled`. This usually means that it is cordoned, so...
+
+    ```bash
+    kubectl uncordon node01
+    ```
+
+    </details>
+
+1.  <details>
+    <summary>Copy all images from the directory '/media' on the controlplane node to '/web' directory on node01.</summary>
+
+    </br>Here we are setting up the content of the directory on `node01` which will ultimately be served as a hostpath persistent volume. It's a straght forward copy with ssh (scp).
+
+    ```bash
+    scp /media/* node01:/web
+    ```
+
+    </details>
+
+1.  <details>
+    <summary>Create new PersistentVolume = 'data-pv'</summary>
+
+    <br>Apply the [manifest](./fileserver-pv.yaml) with `kubectl apply -f`
+
+    </details>
+
+1.  <details>
+    <summary>Create new PersistentVolumeClaim = 'data-pvc'</summary>
+
+    <br>Apply the [manifest](./fileserver-pvc.yaml)
+
+    </details>
+
+1.  <details>
+    <summary>Create a pod for fileserver, name: 'gop-fileserver'</summary>
+
+    <br>Apply the [manifest](./fileserver-pod.yaml)
+
+    </details>
+
+1.  <details>
+    <summary>New Service, name: 'gop-fs-service'</summary>
+
+    <br>Apply the [manifest](./fileserver-svc.yaml)
+
+    </details>
+
+# Automate the lab in a single script!
+
+What we can do here is to clone this repo down to the lab to get all the YAML manifest solutions, then apply them in the correct order. We will also use some Linux trickery to fix the API server. When the script completes, you can press the `Check` button and the lab will be complete!
+
+<details>
+<summary>Automation Script</summary>
+
+Paste this entire script to the lab terminal, sit back and enjoy!
+
+```bash
+{
+    # Clone this repo to get the manifests
+    git clone --depth 1 https://github.com/kodekloudhub/kubernetes-challenges.git
+
+    ### Fix API server
+
+    #### kubeconfig
+    sed -i 's/6433/6443/' .kube/config
+
+    #### API server
+    sed -i 's/ca-authority\.crt/ca.crt/' /etc/kubernetes/manifests/kube-apiserver.yaml
+    # Restart the kubelet to ensure the container is started
+    systemctl restart kubelet
+    # Wait for it to be running. We will get back the container ID when it is
+    id=""
+    while [ -z "$id" ]
+    do
+        echo "Waiting for API server to start..."
+        sleep 2
+        id=$(docker ps --filter "name=k8s_kube-apiserver*" --filter "status=running" --format '{{.ID}}')
+    done
+
+    echo "API Server has started (ID = $id). Giving it 10 seconds to initialise..."
+    sleep 10
+
+    #### CoreDNS
+    kubectl set image deployment/coredns -n kube-system coredns=k8s.gcr.io/coredns/coredns:v1.8.6
+
+    ### Fix node01
+    kubectl uncordon node01
+
+    ### Web directory
+    scp /media/* node01:/web
+
+    ### data-pv
+    kubectl apply -f kubernetes-challenges/challenge-2/fileserver-pv.yaml
+
+    ### data-pvc
+    kubectl apply -f kubernetes-challenges/challenge-2/fileserver-pvc.yaml
+
+    ### gop-file-server
+    kubectl apply -f kubernetes-challenges/challenge-2/fileserver-pod.yaml
+
+    ### gop-fx-service
+    kubectl apply -f kubernetes-challenges/challenge-2/fileserver-svc.yaml
+
+    echo -e "\n\nAutomation complete! Press the Check button.\n"
+}
 
 ```
-$ kubectl uncordon node01
-```
-
-5. Check the CoreDNS Pods in the `kube-system` namespace.
-6. Edit the CoreDNS deployment manifest file and update image name as per description. Run the following commands:-
-
-```
-
-$ kubectl edit deploy coredns -n kube-system
-
-$ kubectl get deploy coredns -n kube-system
-
-$ kubectl get pods -n kube-system
-```
-
-7. Now cluster in configured to perform the following tasks. 
-
-**IMPORTANT NOTE: -**
-
-After fixing the issue in the `kube-apiserver.yaml` file. If the `kube-apiserver` container doesn't come up then restart the `kubelet` service.
-
-Run the following commands as shown below: - 
-
-**a.)** Restart the `kubelet` service.
-
-```sh
-systemctl restart kubelet
-```
-
-**b.)** Then check the availability of the `kube-apiserver` container: -
-
-```sh
-watch "docker ps | grep kube-api"
-```
-
-**c.)** After container's availability, run the `kubectl` command: -
-
-```sh
-kubectl get nodes
-
-```
-  
-  
-  
-  

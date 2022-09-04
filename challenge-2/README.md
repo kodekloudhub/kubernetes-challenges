@@ -6,9 +6,9 @@ As ever, the order you create the resources is significant, and governed by the 
 
 
 1.  <details>
-    <summary>Fix the control plane node</summary>
+    <summary>controlplane</summary>
 
-    </br>This has three subtasks. The order to do them is atucally the *reverse* order in which they are listed!
+    </br>Fix the controlplane node. This has three subtasks. The order to do them is atucally the *reverse* order in which they are listed!
 
     1.  <details>
         <summary>kubeconfig = /root/.kube/config, User = 'kubernetes-admin' Cluster: Server Port = '6443'</summary>
@@ -68,9 +68,9 @@ As ever, the order you create the resources is significant, and governed by the 
     </details>
 
 1.  <details>
-    <summary>node01 is ready and can schedule pods?</summary>
+    <summary>node01</summary>
 
-    </br>Run the following:
+    </br>node01 is ready and can schedule pods? Run the following:
 
     ```bash
     kubectl get nodes
@@ -85,9 +85,9 @@ As ever, the order you create the resources is significant, and governed by the 
     </details>
 
 1.  <details>
-    <summary>Copy all images from the directory '/media' on the controlplane node to '/web' directory on node01.</summary>
+    <summary>web</summary>
 
-    </br>Here we are setting up the content of the directory on `node01` which will ultimately be served as a hostpath persistent volume. It's a straght forward copy with ssh (scp).
+    </br>Copy all images from the directory '/media' on the controlplane node to '/web' directory on node01. Here we are setting up the content of the directory on `node01` which will ultimately be served as a hostpath persistent volume. It's a straght forward copy with ssh (scp).
 
     ```bash
     scp /media/* node01:/web
@@ -96,34 +96,36 @@ As ever, the order you create the resources is significant, and governed by the 
     </details>
 
 1.  <details>
-    <summary>Create new PersistentVolume = 'data-pv'</summary>
+    <summary>data-pv</summary>
 
-    <br>Apply the [manifest](./fileserver-pv.yaml) with `kubectl apply -f`
-
-    </details>
-
-1.  <details>
-    <summary>Create new PersistentVolumeClaim = 'data-pvc'</summary>
-
-    <br>Apply the [manifest](./fileserver-pvc.yaml)
+    <br>Create new PersistentVolume = 'data-pv'.</br>Apply the [manifest](./fileserver-pv.yaml) with `kubectl apply -f`
 
     </details>
 
 1.  <details>
-    <summary>Create a pod for fileserver, name: 'gop-fileserver'</summary>
+    <summary>data-pvc</summary>
 
-    <br>Apply the [manifest](./fileserver-pod.yaml)
+    <br>Create new PersistentVolumeClaim = 'data-pvc'</br>Apply the [manifest](./fileserver-pvc.yaml)
 
     </details>
 
 1.  <details>
-    <summary>New Service, name: 'gop-fs-service'</summary>
+    <summary>gop-fileserver</summary>
 
-    <br>Apply the [manifest](./fileserver-svc.yaml)
+    <br>Create a pod for fileserver, name: 'gop-fileserver'</br>Apply the [manifest](./fileserver-pod.yaml)
+
+    </details>
+
+1.  <details>
+    <summary>gop-fs-service</summary>
+
+    <br>New Service, name: 'gop-fs-service'</br>Apply the [manifest](./fileserver-svc.yaml)
 
     </details>
 
 # Automate the lab in a single script!
+
+As DevOps engineers, we love everything to be automated!
 
 What we can do here is to clone this repo down to the lab to get all the YAML manifest solutions, then apply them in the correct order. We will also use some Linux trickery to fix the API server. When the script completes, you can press the `Check` button and the lab will be complete!
 

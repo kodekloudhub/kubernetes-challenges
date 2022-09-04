@@ -4,6 +4,7 @@ This 2-Node Kubernetes cluster is broken! Troubleshoot, fix the cluster issues a
 
 As ever, the order you create the resources is significant, and governed by the direction of the arrows in the diagram.
 
+You should study the manifests provided in the repo carefully and understand how they provide what the question asks.
 
 1.  <details>
     <summary>controlplane</summary>

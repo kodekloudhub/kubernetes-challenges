@@ -15,14 +15,14 @@ All are solved by creating a YAML manifest for each resource as directed by the 
 1.  <details>
     <summary>jekyll-pvc</summary>
 
-    [Manifest file](./jekyll-pvc.yaml)
+    Apply the [mainifest](./jekyll-pvc.yaml)
 
     </details>
 
 1.  <details>
     <summary>jekyll</summary>
 
-    [Manifest file](./jekyll-pod.yaml)
+    Apply the [mainifest](./jekyll-pod.yaml)
 
     The pod will take at least 30 seconds to initialize.
 
@@ -31,21 +31,21 @@ All are solved by creating a YAML manifest for each resource as directed by the 
 1.  <details>
     <summary>jekyll-node-service</summary>
 
-    [Manifest file](./jekyll-node-service.yaml)
+    Apply the [mainifest](./jekyll-node-service.yaml)
 
     </details>
 
 1.  <details>
     <summary>developer-role</summary>
 
-    [Manifest file](./developer-role.yaml)
+    Apply the [mainifest](./developer-role.yaml)
 
     </details>
 
 1.  <details>
     <summary>developer-rolebinding</summary>
 
-    [Manifest file](./developer-rolebinding.yaml)
+    Apply the [mainifest](./developer-rolebinding.yaml)
 
     </details>
 
@@ -69,6 +69,8 @@ All are solved by creating a YAML manifest for each resource as directed by the 
     </details>
 
 # Automate the lab in a single script!
+
+As DevOps engineers, we love everything to be automated!
 
 What we can do here is to clone this repo down to the lab to get all the YAML manifest solutions, then apply them in the correct order. The script also waits for the Jekyll pod to be fully started before progressing, thus when the script completes, you can press the `Check` button and the lab will be complete!
 

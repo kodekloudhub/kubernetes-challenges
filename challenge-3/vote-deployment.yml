@@ -6,25 +6,24 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: redis-deployment
-  name: redis-deployment
+    app: vote-deployment
+  name: vote-deployment
   namespace: vote
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis-deployment
+      app: vote-deployment
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: redis-deployment
+        app: vote-deployment
     spec:
       containers:
-      - image: redis:alpine
-        name: redis
+      - image: kodekloud/examplevotingapp_vote:before
+        name: vote
         resources: {}
 
 
-        

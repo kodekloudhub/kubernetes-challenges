@@ -58,10 +58,19 @@ You should study the manifests provided in the repo carefully and understand how
         kubectl get pods -n kube-system
         ```
 
-        You will see that CoreDNS has ImagePull errors, because the container imange is incorrect. To fix this, run the following, update the `iamge:` to that specificed in the question, save and exit
+        You will see that CoreDNS has ImagePull errors, because the container imange is incorrect. To fix this, run the following, update the `image:` to that specificed in the question, save and exit
 
         ```bash
         kubectl edit deployment -n kube-system coredns
+        ```
+
+        ---- OR ----
+
+        Edit the image directly
+
+        ```bash
+        kubectl set image deployment/coredns -n kube-system \
+            coredns=k8s.gcr.io/coredns/coredns:v1.8.6
         ```
 
         Now re-run the `get pods` command above (or use `watch` with it) until the coredns pods have recycled and there are two healthy pods.

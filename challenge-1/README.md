@@ -17,14 +17,14 @@ You should study the manifests provided in the repo carefully and understand how
 1.  <details>
     <summary>jekyll-pvc</summary>
 
-    Apply the [mainifest](./jekyll-pvc.yaml)
+    Apply the [manifest](./jekyll-pvc.yaml)
 
     </details>
 
 1.  <details>
     <summary>jekyll</summary>
 
-    Apply the [mainifest](./jekyll-pod.yaml)
+    Apply the [manifest](./jekyll-pod.yaml)
 
     The pod will take at least 30 seconds to initialize.
 
@@ -33,21 +33,21 @@ You should study the manifests provided in the repo carefully and understand how
 1.  <details>
     <summary>jekyll-node-service</summary>
 
-    Apply the [mainifest](./jekyll-node-service.yaml)
+    Apply the [manifest](./jekyll-node-service.yaml)
 
     </details>
 
 1.  <details>
     <summary>developer-role</summary>
 
-    Apply the [mainifest](./developer-role.yaml)
+    Apply the [manifest](./developer-role.yaml)
 
     </details>
 
 1.  <details>
     <summary>developer-rolebinding</summary>
 
-    Apply the [mainifest](./developer-rolebinding.yaml)
+    Apply the [manifest](./developer-rolebinding.yaml)
 
     </details>
 

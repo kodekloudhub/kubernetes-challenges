@@ -108,6 +108,8 @@ What we can do here is to clone this repo down to the lab to get all the YAML ma
 
 Since there is a strong dependency between all the deployments, i.e. worker will fail if its data sources aren't ready, we use a shell function to wait for a pod to be running given the name of its deployment.
 
+You should study the manifests provided in the repo carefully and understand how they provide what the question asks.
+
 <details>
 <summary>Automation Script</summary>
 

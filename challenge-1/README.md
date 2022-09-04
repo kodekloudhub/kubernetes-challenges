@@ -11,6 +11,8 @@ Solve in the following order:
 
 All are solved by creating a YAML manifest for each resource as directed by the details as you select each icon, with the exception of 7 and 8 which are done with `kubectl config`. Expand solutions below by clicking on the arrowhead icons.
 
+You should study the manifests provided in the repo carefully and understand how they provide what the question asks.
+
 1. jekyll-pv - Nothing to do here. The PV is pre-created.
 1.  <details>
     <summary>jekyll-pvc</summary>

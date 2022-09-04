@@ -123,6 +123,7 @@ Paste this entire script to the lab terminal, sit back and enjoy!
 git clone --depth 1 https://github.com/kodekloudhub/kubernetes-challenges.git
 
 ### Create PV directories on node01
+# See https://www.cyberciti.biz/faq/unix-linux-execute-command-using-ssh/
 ssh node01 'for i in $(seq 1 6) ; do mkdir "/redis0$i" ; done'
 
 ### Create PVs

@@ -103,33 +103,35 @@ Paste this entire script to the lab terminal, sit back and enjoy!
         echo "Pod status: $phase"
     done
 
-    if [ "$phase" = "Running" ]
+    if [ "$phase" != "Running" ]
     then
-        ### Service
-        kubectl apply -f kubernetes-challenges/challenge-1/jekyll-node-service.yaml
-
-        ### Role
-        kubectl apply -f kubernetes-challenges/challenge-1/developer-role.yaml
-
-        ## RoleBinding
-        kubectl apply -f kubernetes-challenges/challenge-1/developer-rolebinding.yaml
-
-        ## Martin
-
-        kubectl config set-credentials martin --client-certificate ./martin.crt --client-key ./martin.key
-        kubectl config set-context developer --cluster kubernetes --user martin
-
-        ## kube-config
-
-        kubectl config use-context developer
-
-        echo -e "\n\nAutomation complete! Press the Check button.\n"
-    else
         echo "The pod did not start correctly. Please reload the lab and try again."
         echo "If the issue persists, please report it in Slack in kubernetes-challenges channel"
         echo "https://kodekloud.slack.com/archives/C02LS58EGQ4"
         cd ~
+        echo "Press CTRL-C to exit"
+        read x
     fi
+
+    ### Service
+    kubectl apply -f kubernetes-challenges/challenge-1/jekyll-node-service.yaml
+
+    ### Role
+    kubectl apply -f kubernetes-challenges/challenge-1/developer-role.yaml
+
+    ## RoleBinding
+    kubectl apply -f kubernetes-challenges/challenge-1/developer-rolebinding.yaml
+
+    ## Martin
+
+    kubectl config set-credentials martin --client-certificate ./martin.crt --client-key ./martin.key
+    kubectl config set-context developer --cluster kubernetes --user martin
+
+    ## kube-config
+
+    kubectl config use-context developer
+
+    echo -e "\n\nAutomation complete! Press the Check button.\n"
 }
 
 ```

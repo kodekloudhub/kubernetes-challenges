@@ -2,8 +2,7 @@
 
 Deploy the given architecture diagram for implementing a `Jekyll SSG`. Find the lab [here](https://kodekloud.com/topic/kubernetes-challenge-1/).
 
-
-As ever, the order you create the resources is significant, and governed by the direction of the arrows in the diagram.
+As ever, the order you create the resources is significant, and largely governed by the direction of the arrows in the diagram.
 
 For this challenge, all the namespaced resources are to be created in the existing namespace `development`. When writing YAML manifests, you must include `namespace: development` in the `metadata` section
 
@@ -39,15 +38,25 @@ You should study the manifests provided in the repo carefully and understand how
 
 1.  <details>
     <summary>developer-role</summary>
+    </br>
 
-    Apply the [manifest](./developer-role.yaml)
+    ```
+    kubectl create role developer-role --resource=pods,svc,pvc --verb="*" -n development
+    ```
+
+    </br>--- OR ---</br></br>Apply the [manifest](./developer-role.yaml)
 
     </details>
 
 1.  <details>
     <summary>developer-rolebinding</summary>
+    </br>
 
-    Apply the [manifest](./developer-rolebinding.yaml)
+    ```
+    kubectl create rolebinding developer-rolebinding --role=developer-role --user=martin -n development
+    ```
+
+    </br>--- OR ---</br></br>Apply the [manifest](./developer-rolebinding.yaml)
 
     </details>
 
@@ -117,10 +126,10 @@ Paste this entire script to the lab terminal, sit back and enjoy!
     kubectl apply -f kubernetes-challenges/challenge-1/jekyll-node-service.yaml
 
     ### Role
-    kubectl apply -f kubernetes-challenges/challenge-1/developer-role.yaml
+    kubectl create role developer-role --resource=pods,svc,pvc --verb="*" -n development
 
     ## RoleBinding
-    kubectl apply -f kubernetes-challenges/challenge-1/developer-rolebinding.yaml
+    kubectl create rolebinding developer-rolebinding --role=developer-role --user=martin -n development
 
     ## Martin
 

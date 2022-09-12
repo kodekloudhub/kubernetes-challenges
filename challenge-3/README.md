@@ -2,7 +2,7 @@
 
 Deploy the given architecture to `vote` namespace.  Find the lab [here](https://kodekloud.com/topic/kubernetes-challenge-3/)
 
-As ever, the order you create the resources is significant, and governed by the direction of the arrows in the diagram. There are a lot of inter-dependencies in this one, and things will break if deployed in the wrong order. Since all the applications are going to depend on their data sources, we do those first, followed by the services that front the data sources, then the rest.
+As ever, the order you create the resources is significant, and largely governed by the direction of the arrows in the diagram. There are a lot of inter-dependencies in this one, and things will break if deployed in the wrong order. Since all the applications are going to depend on their data sources, we do those first, followed by the services that front the data sources, then the rest.
 
 Note that some of the deployments may take up to a minute to start fully and reach running state.
 

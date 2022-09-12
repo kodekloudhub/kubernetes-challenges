@@ -2,6 +2,7 @@
 
 Build a highly available Redis Cluster based on the given architecture diagram. Find the lab [here](https://kodekloud.com/topic/kubernetes-challenge-4/).
 
+As ever, the order you create the resources is significant, and largely governed by the direction of the arrows in the diagram.
 
 You should study the manifests provided in the repo carefully and understand how they provide what the question asks.
 

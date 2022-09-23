@@ -83,7 +83,7 @@ You should study the manifests provided in the repo carefully and understand how
 
     </br>Because the redis cluster is a StatefulSet, it is necessay for a service to exist first, as the StatefulSet manifest refers to it by name.
 
-    Apply the [manifest](./redis-service.yaml)
+    Apply the [manifest](./redis-cluster-service.yaml)
 
 1.  <details>
     <summary>redis-cluster</summary>
@@ -147,7 +147,7 @@ EOF
 done
 
 ### Create service
-kubectl apply -f kubernetes-challenges/challenge-4/redis-service.yaml
+kubectl apply -f kubernetes-challenges/challenge-4/redis-cluster-service.yaml
 
 ### Create redis-cluster
 kubectl apply -f kubernetes-challenges/challenge-4/redis-statefulset.yaml

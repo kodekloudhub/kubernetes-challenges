@@ -117,23 +117,15 @@ Paste this entire script to the lab terminal, sit back and enjoy!
 
 ```bash
 {
-wait_pod() {
+wait_deployment() {
     deployment=$1
 
-    pod=$(kubectl get pods -n vote -o name | grep $deployment | cut -d '/' -f 2)
-    phase='Pending'
-    echo "Waiting for pod $pod to be running..."
+    echo "Waiting up to 120s for $deployment deployment to be available..."
+    kubectl wait -n vote deployment $deployment --for condition=Available=True --timeout=120s
 
-    while [ "$phase" == "Pending" ]
-    do
-        sleep 2
-        phase=$(kubectl get pod -n vote $pod -o jsonpath='{.status.phase}')
-        echo "${pod}: ${phase}"
-    done
-
-    if [ "$phase" != "Running" ]
+    if [ $? -ne 0 ]
     then
-        echo "The pod did not start correctly. Please reload the lab and try again."
+        echo "The deployment did not rollout correctly. Please reload the lab and try again."
         echo "If the issue persists, please report it in Slack in kubernetes-challenges channel"
         echo "https://kodekloud.slack.com/archives/C02LS58EGQ4"
         echo "Press CTRL-C to exit"
@@ -147,29 +139,29 @@ kubectl create namespace vote
 
 kubectl apply -f kubernetes-challenges/challenge-3/db-deployment.yml
 
-wait_pod db-deployment
+wait_deployment db-deployment
 
 kubectl apply -f kubernetes-challenges/challenge-3/db-service.yml
 
 kubectl apply -f kubernetes-challenges/challenge-3/redis-deployment.yml
 
-wait_pod redis-deployment
+wait_deployment redis-deployment
 
 kubectl apply -f kubernetes-challenges/challenge-3/redis-service.yml
 
 kubectl apply -f kubernetes-challenges/challenge-3/worker.yml
 
-wait_pod worker
+wait_deployment worker
 
 kubectl apply -f kubernetes-challenges/challenge-3/result-deployment.yml
 
-wait_pod result-deployment
+wait_deployment result-deployment
 
 kubectl apply -f kubernetes-challenges/challenge-3/result-service.yml
 
 kubectl apply -f kubernetes-challenges/challenge-3/vote-deployment.yml
 
-wait_pod vote-deployment
+wait_deployment vote-deployment
 
 kubectl apply -f kubernetes-challenges/challenge-3/vote-service.yml
 

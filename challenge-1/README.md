@@ -102,17 +102,10 @@ Paste this entire script to the lab terminal, sit back and enjoy!
     kubectl apply -f kubernetes-challenges/challenge-1/jekyll-pod.yaml
 
     # Wait for pod to be running
-    echo "Waiting for Jekyll pod to be running. If it remains pending for more than 2 minutes, there may be an issue. Press CTRL-C and check the pod."
+    echo "Waiting up to 120s for Jekyll pod to be running..."
+    kubectl wait -n development --for=condition=ready pod -l run=jekyll --timeout 120s
 
-    phase="Pending"
-    while [ "$phase" = "Pending" ]
-    do
-        sleep 2
-        phase=$(kubectl get pod -n development jekyll -o jsonpath='{.status.phase}')
-        echo "Pod status: $phase"
-    done
-
-    if [ "$phase" != "Running" ]
+    if [ $? -ne 0 ]
     then
         echo "The pod did not start correctly. Please reload the lab and try again."
         echo "If the issue persists, please report it in Slack in kubernetes-challenges channel"

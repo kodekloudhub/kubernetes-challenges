@@ -47,6 +47,8 @@ You should study the manifests provided in the repo carefully and understand how
 
         ...then run the docker command again. If you see it starting and stopping, then you've made an error in the manifest that you need to fix.
 
+        You should also be aware of how to [diagnose a crashed API server](https://github.com/kodekloudhub/community-faq/blob/main/docs/diagnose-crashed-apiserver.md).
+
         </details>
 
     1.  <details>

@@ -1,5 +1,7 @@
 # Challenge 2
 
+Please note that the first two parts of this challenge are more CKA focused.
+
 This 2-Node Kubernetes cluster is broken! Troubleshoot, fix the cluster issues and then deploy the objects according to the given architecture diagram to unlock our `Image Gallery`!!  Find the lab [here](https://kodekloud.com/topic/kubernetes-challenge-2/)
 
 As ever, the order you create the resources is significant, and largely governed by the direction of the arrows in the diagram.

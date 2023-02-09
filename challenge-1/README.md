@@ -12,7 +12,7 @@ All are solved by creating a YAML manifest for each resource as directed by the 
 
 You should study the manifests provided in the repo carefully and understand how they provide what the question asks.
 
-1. jekyll-pv - Nothing to do here. The PV is pre-created.
+1. `jekyll-pv` - The PV is pre-created, however you should examine it and check its properties. Getting the PVC correct depends on this.
 1.  <details>
     <summary>jekyll-pvc</summary>
 

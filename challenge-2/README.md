@@ -35,7 +35,7 @@ You should study the manifests provided in the repo carefully and understand how
         vi /etc/kubernetes/manifests/kube-apiserver.yaml
         ```
 
-        Now wait for the API server to restart. This may take a minute or so. You can run the following to check if the container has been created. Press `CTRL-C` to eacape from the following command.
+        Now wait for the API server to restart. This may take a minute or so. You can run the following to check if the container has been created. Press `CTRL-C` to escape from the following command.
 
         ```bash
         watch crictl ps

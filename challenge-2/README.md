@@ -27,7 +27,7 @@ You should study the manifests provided in the repo carefully and understand how
     1.  <details>
         <summary>Fix kube-apiserver. Make sure its running and healthy.</summary>
 
-        </br>The file referenced by the `--client-ca-file` argument to the API server doesn't exist. Edit the API server manisfest and correct this.
+        </br>The file referenced by the `--client-ca-file` argument to the API server doesn't exist. Edit the API server manifest and correct this.
 
         ```bash
         ls -l /etc/kubernetes/pki/*.crt
@@ -38,7 +38,7 @@ You should study the manifests provided in the repo carefully and understand how
         Now wait for the API server to restart. This may take a minute or so. You can run the following to check if the container has been created. Press `CTRL-C` to eacape from the following command.
 
         ```bash
-        watch docker ps
+        watch crictl ps
         ```
 
         If it still hasn't started, then give it a nudge by restarting the kubelet.
@@ -47,7 +47,7 @@ You should study the manifests provided in the repo carefully and understand how
         systemctl restart kubelet
         ```
 
-        ...then run the docker command again. If you see it starting and stopping, then you've made an error in the manifest that you need to fix.
+        ...then run the crictl command again. If you see it starting and stopping, then you've made an error in the manifest that you need to fix.
 
         You should also be aware of how to [diagnose a crashed API server](https://github.com/kodekloudhub/community-faq/blob/main/docs/diagnose-crashed-apiserver.md).
 

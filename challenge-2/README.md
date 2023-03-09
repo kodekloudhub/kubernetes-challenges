@@ -124,9 +124,9 @@ You should study the manifests provided in the repo carefully and understand how
     </details>
 
 1.  <details>
-    <summary>gop-fileserver</summary>
+    <summary>gop-file-server</summary>
 
-    <br>Create a pod for fileserver, name: 'gop-fileserver'</br>Apply the [manifest](./fileserver-pod.yaml)
+    <br>Create a pod for file server, name: 'gop-file-server'</br>Apply the [manifest](./fileserver-pod.yaml)
 
     </details>
 

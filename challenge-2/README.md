@@ -54,7 +54,7 @@ You should study the manifests provided in the repo carefully and understand how
         </details>
 
     1.  <details>
-        <summary>Master node: coredns deployment has image: 'k8s.gcr.io/coredns/coredns:v1.8.6'</summary>
+        <summary>Master node: coredns deployment has image: 'registry.k8s.io/coredns/coredns:v1.8.6'</summary>
 
         </br>Run the following:
 
@@ -74,7 +74,7 @@ You should study the manifests provided in the repo carefully and understand how
 
         ```bash
         kubectl set image deployment/coredns -n kube-system \
-            coredns=k8s.gcr.io/coredns/coredns:v1.8.6
+            coredns=registry.k8s.io/coredns/coredns:v1.8.6
         ```
 
         Now re-run the `get pods` command above (or use `watch` with it) until the coredns pods have recycled and there are two healthy pods.
@@ -168,14 +168,14 @@ Paste this entire script to the lab terminal, sit back and enjoy!
     do
         echo "Waiting for API server to start..."
         sleep 2
-        id=$(docker ps --filter "name=k8s_kube-apiserver*" --filter "status=running" --format '{{.ID}}')
+        id=$(crictl ps -a --name kube-apiserver --state running --output json | awk -F '"' '/"id":/{print $4}')
     done
 
     echo "API Server has started (ID = $id). Giving it 10 seconds to initialise..."
     sleep 10
 
     #### CoreDNS
-    kubectl set image deployment/coredns -n kube-system coredns=k8s.gcr.io/coredns/coredns:v1.8.6
+    kubectl set image deployment/coredns -n kube-system coredns=registry.k8s.io/coredns/coredns:v1.8.6
 
     ### Fix node01
     kubectl uncordon node01

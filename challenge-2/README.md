@@ -22,6 +22,11 @@ You should study the manifests provided in the repo carefully and understand how
         vi .kube/config
         ```
 
+        Change this line to have the correct port `6443`, save and exit vi.
+
+        ```yaml
+            server: https://controlplane:6433
+        ```
         </details>
 
     1.  <details>
@@ -33,6 +38,12 @@ You should study the manifests provided in the repo carefully and understand how
         ls -l /etc/kubernetes/pki/*.crt
         # Notice that the correct certificate is ca.crt
         vi /etc/kubernetes/manifests/kube-apiserver.yaml
+        ```
+
+        Change this line to refer to the correct certificate file, save and exit vi.
+
+        ```yaml
+            - --client-ca-file=/etc/kubernetes/pki/ca-authority.crt
         ```
 
         Now wait for the API server to restart. This may take a minute or so. You can run the following to check if the container has been created. Press `CTRL-C` to escape from the following command.

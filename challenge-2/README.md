@@ -14,7 +14,7 @@ You should study the manifests provided in the repo carefully and understand how
     </br>Fix the controlplane node. This has three subtasks. The order to do them is atucally the *reverse* order in which they are listed!
 
     1.  <details>
-        <summary>kubeconfig = /root/.kube/config, User = 'kubernetes-admin' Cluster: Server Port = '6443'</summary>
+        <summary>kubeconfig = <code>/root/.kube/config</code>, User = <code>kubernetes-admin</code> Cluster: Server Port = <code>6443</code></summary>
 
         </br>Before we can execute any `kubectl` commands, we must fix the kubeconfig. The server port is incorrect and should be `6443`. Edit this in `vi` and save.
 
@@ -22,6 +22,11 @@ You should study the manifests provided in the repo carefully and understand how
         vi .kube/config
         ```
 
+        Change the following line to have the correct port `6443`, save and exit vi.
+
+        ```yaml
+            server: https://controlplane:6433
+        ```
         </details>
 
     1.  <details>
@@ -33,6 +38,12 @@ You should study the manifests provided in the repo carefully and understand how
         ls -l /etc/kubernetes/pki/*.crt
         # Notice that the correct certificate is ca.crt
         vi /etc/kubernetes/manifests/kube-apiserver.yaml
+        ```
+
+        Change the following line to refer to the correct certificate file, save and exit vi.
+
+        ```yaml
+            - --client-ca-file=/etc/kubernetes/pki/ca-authority.crt
         ```
 
         Now wait for the API server to restart. This may take a minute or so. You can run the following to check if the container has been created. Press `CTRL-C` to escape from the following command.
@@ -54,7 +65,7 @@ You should study the manifests provided in the repo carefully and understand how
         </details>
 
     1.  <details>
-        <summary>Master node: coredns deployment has image: 'registry.k8s.io/coredns/coredns:v1.8.6'</summary>
+        <summary>Master node: coredns deployment has image: <code>registry.k8s.io/coredns/coredns:v1.8.6</code></summary>
 
         </br>Run the following:
 
@@ -62,7 +73,7 @@ You should study the manifests provided in the repo carefully and understand how
         kubectl get pods -n kube-system
         ```
 
-        You will see that CoreDNS has ImagePull errors, because the container imange is incorrect. To fix this, run the following, update the `image:` to that specificed in the question, save and exit
+        You will see that CoreDNS has ImagePull errors, because the container image is incorrect. To fix this, run the following, update the `image:` to that specificed in the question, save and exit
 
         ```bash
         kubectl edit deployment -n kube-system coredns

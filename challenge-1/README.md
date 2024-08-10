@@ -108,8 +108,8 @@ Paste this entire script to the lab terminal, sit back and enjoy!
     if [ $? -ne 0 ]
     then
         echo "The pod did not start correctly. Please reload the lab and try again."
-        echo "If the issue persists, please report it in Slack in kubernetes-challenges channel"
-        echo "https://kodekloud.slack.com/archives/C02LS58EGQ4"
+        echo "If the issue persists, please report it on the community forum."
+        echo "https://kodekloud.com/community/c/kubernetes/6"
         cd ~
         echo "Press CTRL-C to exit"
         read x

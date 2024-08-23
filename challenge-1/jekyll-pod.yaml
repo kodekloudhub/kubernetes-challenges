@@ -6,16 +6,16 @@ metadata:
   name: jekyll
   labels:
     run: jekyll
-spec: 
+spec:
   containers:
   - name: jekyll
-    image: kodekloud/jekyll-serve
+    image: gcr.io/kodekloud/customimage/jekyll-serve
     volumeMounts:
     - mountPath: /site
-      name: site  
+      name: site
   initContainers:
   - name: copy-jekyll-site
-    image: kodekloud/jekyll
+    image: gcr.io/kodekloud/customimage/jekyll
     command: [ "jekyll", "new", "/site" ]
     volumeMounts:
     - mountPath: /site
@@ -24,4 +24,4 @@ spec:
   - name: site
     persistentVolumeClaim:
       claimName: jekyll-site
-    
+

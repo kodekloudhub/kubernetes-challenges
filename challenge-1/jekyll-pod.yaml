@@ -9,13 +9,13 @@ metadata:
 spec: 
   containers:
   - name: jekyll
-    image: kodekloud/jekyll-serve
+    image: gcr.io/kodekloud/customimage/jekyll-serve
     volumeMounts:
     - mountPath: /site
       name: site  
   initContainers:
   - name: copy-jekyll-site
-    image: kodekloud/jekyll
+    image: gcr.io/kodekloud/customimage/jekyll
     command: [ "jekyll", "new", "/site" ]
     volumeMounts:
     - mountPath: /site

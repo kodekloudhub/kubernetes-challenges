@@ -109,7 +109,7 @@ Paste this entire script to the lab terminal, sit back and enjoy!
     then
         echo "The pod did not start correctly. Please reload the lab and try again."
         echo "If the issue persists, please report it on the community forum."
-        echo "https://kodekloud.com/community/c/kubernetes/6"
+        echo "https://discord.com/channels/1197109182172770304/1346744403343183872"
         cd ~
         echo "Press CTRL-C to exit"
         read x

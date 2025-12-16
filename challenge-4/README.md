@@ -160,8 +160,8 @@ EOF
   if [ $? -ne 0 ]
   then
       echo "The statefulset did not start correctly. Please reload the lab and try again."
-      echo "If the issue persists, please report it in Slack in kubernetes-challenges channel"
-      echo "https://kodekloud.slack.com/archives/C02LS58EGQ4"
+      echo "If the issue persists, please report it in please report it on the community forum."
+      echo "https://discord.com/channels/1197109182172770304/1346744403343183872"
       cd ~
       echo "Press CTRL-C to exit"
       read x
